@@ -142,6 +142,8 @@ int main(int argc, char** argv)
 
 			// Display all data
 			printf("%6.2f \n%6.2f \n\n", celsius, humidity);
+			
+			return 0;
 		}
 
 		else
