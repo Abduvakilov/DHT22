@@ -146,16 +146,13 @@ int main(int argc, char** argv)
 
 		else
 		{
-			printf("[x_x] Invalid Data. Try again.\n\n");
+			// Initialize data array for next loop
+			for (unsigned char i = 0; i < 5; i++)
+			{
+				data[i] = 0;
+			}
 		}
 
-		// Initialize data array for next loop
-		for (unsigned char i = 0; i < 5; i++)
-		{
-			data[i] = 0;
-		}
-
-		delay(2000);	// DHT22 average sensing period is 2 seconds
 	}
 
 	return 0;
