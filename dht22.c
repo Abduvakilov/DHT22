@@ -6,10 +6,11 @@
  */
 
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <wiringPi.h>
 
-static const unsigned short signal = 18;
+static unsigned short signal;
 unsigned short data[5] = {0, 0, 0, 0, 0};
 
 
@@ -26,11 +27,11 @@ short readData()
 		while (digitalRead(signal) == HIGH)
 		{
 			signal_length++;
-			
+
 			// When sending data ends, high signal occur infinite.
 			// So we have to end this infinite loop.
 			if (signal_length >= 200)
-			{				
+			{
 				return -1;
 			}
 
@@ -95,15 +96,17 @@ short readData()
 }
 
 
-int main(void)
+int main(int argc, char** argv)
 {
 	float humidity;
 	float celsius;
 	float fahrenheit;
 	short checksum;
 
+	signal = argc > 1 ? atoi(argv[1]) : 0;
+
 	// GPIO Initialization
-	if (wiringPiSetupGpio() == -1)
+	if ((signal == 0) || (wiringPiSetupGpio() == -1))
 	{
 		printf("[x_x] GPIO Initialization FAILED.\n");
 		return -1;
@@ -123,7 +126,7 @@ int main(void)
 		// The sum is maybe over 8 bit like this: '0001 0101 1010'.
 		// Remove the '9 bit' data using AND operator.
 		checksum = (data[0] + data[1] + data[2] + data[3]) & 0xFF;
-		
+
 		// If Check-sum data is correct (NOT 0x00), display humidity and temperature
 		if (data[4] == checksum && checksum != 0x00)
 		{
@@ -137,10 +140,8 @@ int main(void)
 				celsius *= -1;
 			}
 
-			fahrenheit = ((celsius * 9) / 5) + 32;
-
 			// Display all data
-			printf("TEMP: %6.2f *C (%6.2f *F) | HUMI: %6.2f %\n\n", celsius, fahrenheit, humidity);
+			printf("%6.2f \n%6.2f \n\n", celsius, humidity);
 		}
 
 		else
