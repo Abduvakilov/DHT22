@@ -8,6 +8,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <wiringPi.h>
 
 static unsigned short signal;
@@ -142,12 +143,11 @@ int main(int argc, char** argv)
 
 			if(argc > 2)
 			{
-				printf("%s", argv[2]);
-				if(argv[2]=="hum")
+				if(strcmp(argv[2],"hum")==0)
 				{
 					printf("%6.2f", humidity);
 				}
-				if(argv[2]=="temp")
+				if(strcmp(argv[2],"temp")==0)
 				{
 					printf("%6.2f", humidity);
 				}
