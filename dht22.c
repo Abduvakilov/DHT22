@@ -142,8 +142,15 @@ int main(int argc, char** argv)
 
 			if(argc > 2)
 			{
-				if(argv[2]=="hum") printf("%6.2f", humidity);
-				if(argv[2]=="temp") printf("%6.2f", humidity);
+				printf("%s", argv[2]);
+				if(argv[2]=="hum")
+				{
+					printf("%6.2f", humidity);
+				}
+				if(argv[2]=="temp")
+				{
+					printf("%6.2f", humidity);
+				}
 			} else
 			{
 				// Display all data
