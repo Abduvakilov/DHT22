@@ -149,7 +149,7 @@ int main(int argc, char** argv)
 				}
 				if(strcmp(argv[2],"temp")==0)
 				{
-					printf("%6.2f", humidity);
+					printf("%6.2f", celsius);
 				}
 			} else
 			{
